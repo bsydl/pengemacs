@@ -1,6 +1,6 @@
 ;; init.el
-; 在 Mode line 上显示列号
-(column-number-mode t)
+; 在全局上显示列号
+(global-linum-mode t)
 
 ;; all backups goto ~/.backups instead in the current directory
 (setq backup-directory-alist (quote (("." . "~/.emacs-backups"))))
