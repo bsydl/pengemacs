@@ -6,7 +6,7 @@
 (setq backup-directory-alist (quote (("." . "~/.emacs-backups"))))
 
 ;在 Window 显示行号
-(global-display-line-numbers-mode 1)
+;;(global-display-line-numbers-mode 1)
 
 ;;高亮当前行
 (global-hl-line-mode t)
