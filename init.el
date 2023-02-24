@@ -7,6 +7,8 @@
 (add-to-list 'load-path "~/.emacs.d/package/dash")
 (add-to-list 'load-path "~/.emacs.d/package/luaMode")
 (add-to-list 'load-path "~/.emacs.d/package/neotree")
+(add-to-list 'load-path "~/.emacs.d/package/projectile")
+(add-to-list 'load-path "~/.emacs.d/package/find-file-in-project")
 ;;add theme load-path
 (add-to-list 'load-path "~/.emacs.d/theme/color-theme")
 
@@ -110,6 +112,24 @@
 (global-set-key [f5] 'neotree-toggle)
 (global-set-key [f8] 'neotree-refresh)
 
+(require 'projectile )
+
+;; 默认全局使用
+; (projectile-global-mode)
+;;(setq projectile-switch-project-action #'projectile-dired)
+;; 默认打开缓存
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'native)
+ 
+; ;;【现在就像浏览自己本地文件目录一样，也可以编辑响应缓慢的问题可以通过添加这行来解决】
+; (setq projectile-mode-line "Projectile") 
+ 
+;; 使用f5键打开默认文件搜索
+(global-set-key [f6] 'projectile-find-file)
+;;导入ffip
+(require 'find-file-in-project)
+
+(setq ffip-prefer-ido-mode t)
 
 ; ;;emacs neotree/neotree.el
 ; (defcustom neo-window-width 25
