@@ -9,6 +9,7 @@
 (add-to-list 'load-path "~/.emacs.d/package/neotree")
 (add-to-list 'load-path "~/.emacs.d/package/projectile")
 (add-to-list 'load-path "~/.emacs.d/package/find-file-in-project")
+
 ;;add theme load-path
 (add-to-list 'load-path "~/.emacs.d/theme/color-theme")
 
@@ -59,37 +60,48 @@
  ;; Your init file should contain only one such instance.x
  ;; If there is more than one, they won't work right.
  )
+;;-----------------------------------------自定义按键----------------------------------------------
+;; copy region or whole line
+(global-set-key "\M-w"
+(lambda ()
+  (interactive)
+  (if mark-active
+      (kill-ring-save (region-beginning)
+      (region-end))
+    (progn
+     (kill-ring-save (line-beginning-position)
+     (line-end-position))
+     (message "copied line")))))
 
-;;镜像
-(require 'package)
-(setq package-archives                                                                                           
-      '(("melpa"  . "http://elpa.zilongshanren.com/melpa/")
-	("gnu"    . "http://elpa.zilongshanren.com/gnu/")
-	("nongnu" . "https://mirrors.sjtug.sjtu.edu.cn/emacs-elpa/nongnu/")))
 
-; (package-initialize)
-
-; (unless (package-installed-p 'use-package)
-;   (package-refresh-contents)
-;   (package-install 'use-package))
-
-; (use-package company
-;   :ensure t
-;   :init (global-company-mode)
-;   :config
-;   (setq company-minimum-prefix-length 1) ; 只需敲 1 个字母就开始进行自动补全
-;   (setq company-tooltip-align-annotations t)
-;   (setq company-idle-delay 0.0)
-;   (setq company-show-numbers t) ;; 给选项编号 (按快捷键 M-1、M-2 等等来进行选择).
-;   (setq company-selection-wrap-around t)
-;   (setq company-transformers '(company-sort-by-occurrence))) ; 根据选择的频率进行排序，读者如果不喜欢可以去掉
-
+;; Kill region or whole line
+(global-set-key "\C-w"
+(lambda ()
+  (interactive)
+  (if mark-active
+      (kill-region (region-beginning)
+   (region-end))
+    (progn
+     (kill-region (line-beginning-position)
+  (line-end-position))
+     (message "killed line")))))
+;;------------------------------------------------------------------------------------------------
 ;;load theme
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-monokai)
+;;helm---------------------------------
+(add-to-list 'load-path "~/.emacs.d/package/emacs-async")
+(add-to-list 'load-path "~/.emacs.d/package/helm")
+(require 'helm)
+; (global-set-key (kbd "M-x") 'helm-M-x)
+; (global-set-key (kbd "C-x C-f") 'helm-find-files)
+;;(helm-mode 1)
+;;------------------------------------
+;;ag------------------------------------begin
+(add-to-list 'load-path "~/.emacs.d/package/ag.el")
 
-
+;;--------------------------------------end
 ;;;; This snippet enables lua-mode
 (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
@@ -111,28 +123,62 @@
 (require 'neotree)
 (global-set-key [f5] 'neotree-toggle)
 (global-set-key [f8] 'neotree-refresh)
-
+;;projectile------------------------------------------------
 (require 'projectile )
 
 ;; 默认全局使用
 ; (projectile-global-mode)
-;;(setq projectile-switch-project-action #'projectile-dired)
+;(setq projectile-switch-project-action #'projectile-dired)
 ;; 默认打开缓存
-(setq projectile-enable-caching t)
-(setq projectile-indexing-method 'native)
- 
-; ;;【现在就像浏览自己本地文件目录一样，也可以编辑响应缓慢的问题可以通过添加这行来解决】
+; (setq projectile-enable-caching t)
+; (setq projectile-indexing-method 'native)
+(setq projectile-cache-file (expand-file-name ".cache/projectile.cache" user-emacs-directory))
+; ; ;;【现在就像浏览自己本地文件目录一样，也可以编辑响应缓慢的问题可以通过添加这行来解决】
 ; (setq projectile-mode-line "Projectile") 
- 
+(projectile-mode 1)
+(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
 ;; 使用f5键打开默认文件搜索
-(global-set-key [f6] 'projectile-find-file)
+; (global-set-key [f6] 'projectile-find-file)
+;;---------------------------------------------------------end
+;;ffip-------------------------------------------------------
 ;;导入ffip
-(require 'find-file-in-project)
+; (require 'find-file-in-project)
+; (setq ffip-prefer-ido-mode t)
+;;---------------------------------------------------------end
 
-(setq ffip-prefer-ido-mode t)
+;;edwina---------------------------------------
+; (add-to-list 'load-path "~/.emacs.d/package/edwina")
+; (require 'edwina)
 
-; ;;emacs neotree/neotree.el
-; (defcustom neo-window-width 25
-;   "*Specifies the width of the NeoTree window."
-;   :type 'integer
-;   :group 'neotree)
+; (setq display-buffer-base-action '(display-buffer-below-selected))
+; ;; 以下定义会被 (edwina-setup-dwm-keys) 增加 'M-' 修饰。
+; ;; 我自定义了一套按键，因为原版会把我很常用的 M-d 覆盖掉。
+; (setq edwina-dwm-key-alist
+;       '(("r" edwina-arrange)
+;         ("j" edwina-select-next-window)
+;         ("k" edwina-select-previous-window)
+;         ("J" edwina-swap-next-window)
+;         ("K" edwina-swap-previous-window)
+;         ("h" edwina-dec-mfact)    ;; 主窗口缩窄
+;         ("l" edwina-inc-mfact)    ;; 主窗口拉宽
+;         ("D" edwina-dec-nmaster)  ;; 减少主窗口的数量
+;         ("I" edwina-inc-nmaster)  ;; 增加主窗口的数量
+;         ("C" edwina-delete-window) ;; 关闭窗口
+;         ("RET" edwina-zoom t)     ;; 交换「主窗口」和「副窗口」
+;         ("return" edwina-zoom t)
+;         ("S-RET" edwina-clone-window t) ;; 复制一个本窗口
+;         ("S-return" edwina-clone-window t)))
+; (edwina-setup-dwm-keys)
+; (edwina-mode 1)
+
+; (use-package edwina
+;   :ensure t
+;   :config
+;   (setq display-buffer-base-action '(display-buffer-below-selected))
+;   (edwina-setup-dwm-keys)
+;   (edwina-mode 1))
+
+;;winum--------------------------------------
+(add-to-list 'load-path "~/.emacs.d/package/emacs-winum")
+(require 'winum)
+(winum-mode)

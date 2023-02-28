@@ -1,1 +1,1 @@
-("e:/gitCode/skynet/" "e:/gitCode/lua-zset/")
+("e:/gitCode/skynet/" "~/.emacs.d/" "e:/gitCode/lua-zset/")
