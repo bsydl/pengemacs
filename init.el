@@ -1,18 +1,22 @@
+;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
+;; -*- lexical-binding: t -*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;add package load-path 
-(add-to-list 'load-path "~/.emacs.d/package/company-mode")
-(add-to-list 'load-path "~/.emacs.d/package/company-lua")
-(add-to-list 'load-path "~/.emacs.d/package/f")
-(add-to-list 'load-path "~/.emacs.d/package/s")
-(add-to-list 'load-path "~/.emacs.d/package/dash")
-(add-to-list 'load-path "~/.emacs.d/package/luaMode")
-(add-to-list 'load-path "~/.emacs.d/package/neotree")
-(add-to-list 'load-path "~/.emacs.d/package/projectile")
-(add-to-list 'load-path "~/.emacs.d/package/find-file-in-project")
+; (add-to-list 'load-path "~/.emacs.d/package/company-mode")
+; (add-to-list 'load-path "~/.emacs.d/package/company-lua")
+; (add-to-list 'load-path "~/.emacs.d/package/f")
+; (add-to-list 'load-path "~/.emacs.d/package/s")
+; (add-to-list 'load-path "~/.emacs.d/package/dash")
+; ; (add-to-list 'load-path "~/.emacs.d/package/lua-mode")
+; (add-to-list 'load-path "~/.emacs.d/package/neotree")
+; (add-to-list 'load-path "~/.emacs.d/package/projectile")
+; (add-to-list 'load-path "~/.emacs.d/package/find-file-in-project")
 
 ;;add theme load-path
-(add-to-list 'load-path "~/.emacs.d/theme/color-theme")
+; (add-to-list 'load-path "~/.emacs.d/theme/color-theme")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;BUG;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(eval-when-compile (setq lexical-binding t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;基础设置
 ;; init.el
@@ -35,7 +39,7 @@
 ;;工具栏
 (tool-bar-mode 0)
 ;;菜单栏
-(menu-bar-mode 0)
+(menu-bar-mode 1)
 ;;允许emacs和外部其他程序的粘贴
 (setq x-select-enable-clipboard t)
 
@@ -43,23 +47,40 @@
 (global-set-key [f9] 'calendar)
 
 ;; 设置光标为竖线
-(setq-default cursor-type 'box)
+(setq-default cursor-type '(bar . 5))
 ;; 设置光标为方块
+
 ;; (setq-default cursor-type 'box)
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+(global-set-key (kbd "<f2>") 'open-init-file)
+
+;; 更改显示字体大小 16pt
+;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
+(set-face-attribute 'default nil :height 120);;
+
+;;让鼠标滚动更好用
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+(setq mouse-wheel-progressive-speed nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(company)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.x
- ;; If there is more than one, they won't work right.
- )
+; (custom-set-variables
+;  ;; custom-set-variables was added by Custom.
+;  ;; If you edit it by hand, you could mess it up, so be careful.
+;  ;; Your init file should contain only one such instance.
+;  ;; If there is more than one, they won't work right.
+;  '(package-selected-packages
+;    '(projectile consult embark marginalia orderless vertico company)))
+; (custom-set-faces
+;  ;; custom-set-faces was added by Custom.
+;  ;; If you edit it by hand, you could mess it up, so be careful.
+;  ;; Your init file should contain only one such instance.
+;  ;; If there is more than one, they won't work right.
+;  )
 ;;-----------------------------------------自定义按键----------------------------------------------
 ;; copy region or whole line
 (global-set-key "\M-w"
@@ -85,100 +106,74 @@
      (kill-region (line-beginning-position)
   (line-end-position))
      (message "killed line")))))
+
+
 ;;------------------------------------------------------------------------------------------------
 ;;load theme
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-monokai)
-;;helm---------------------------------
-(add-to-list 'load-path "~/.emacs.d/package/emacs-async")
-(add-to-list 'load-path "~/.emacs.d/package/helm")
-(require 'helm)
-; (global-set-key (kbd "M-x") 'helm-M-x)
-; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-;;(helm-mode 1)
-;;------------------------------------
-;;ag------------------------------------begin
-(add-to-list 'load-path "~/.emacs.d/package/ag.el")
+; (require 'color-theme)
+; (color-theme-initialize)
+; (color-theme-monokai)
+;;---------------------------------------------配置源begin---------------------------------------------
+(require 'package)
+; (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
 
-;;--------------------------------------end
-;;;; This snippet enables lua-mode
-(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
-(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
-(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+;        ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+; (setq package-archives '(("gnu"   . "http://1.15.88.122/gnu/")
+;                           ("melpa" . "http://1.15.88.122/melpa/")))
+(package-initialize)
 
-(require 'company)
-(require 'company-lua)
+;;防止反复调用 package-refresh-contents 会影响加载速度
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
-(add-hook 'after-init-hook'global-company-mode)
+; ;;modeline上显示我的所有的按键和执行的命令
+; (package-install 'keycast)
+; (keycast-mode t)
+;;---------------------------------------------配置源end-------------------------------------------
+;;---------------------------------------------包管理begin-------------------------------------------
 
-(defun my-lua-mode-company-init ()
-  (setq-local company-backends '((company-lua
-                                  company-etags
-                                  company-dabbrev-code
-                                  company-yasnippet))))
-(add-hook 'lua-mode-hook #'my-lua-mode-company-init)
+(global-company-mode 1)
+(setq company-minmum-prefix-length 1)
+(setq company-idle-delay 0)
+;; company mode 默认选择上一条和下一条候选项命令 M-n M-p
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
 
-;;neotree package
-(require 'neotree)
-(global-set-key [f5] 'neotree-toggle)
-(global-set-key [f8] 'neotree-refresh)
-;;projectile------------------------------------------------
-(require 'projectile )
+(package-install 'vertico)
+(vertico-mode t)
 
-;; 默认全局使用
-; (projectile-global-mode)
-;(setq projectile-switch-project-action #'projectile-dired)
-;; 默认打开缓存
-; (setq projectile-enable-caching t)
-; (setq projectile-indexing-method 'native)
-(setq projectile-cache-file (expand-file-name ".cache/projectile.cache" user-emacs-directory))
-; ; ;;【现在就像浏览自己本地文件目录一样，也可以编辑响应缓慢的问题可以通过添加这行来解决】
-; (setq projectile-mode-line "Projectile") 
-(projectile-mode 1)
-(define-key projectile-mode-map (kbd "C-c C-p") 'projectile-command-map)
-;; 使用f5键打开默认文件搜索
-; (global-set-key [f6] 'projectile-find-file)
-;;---------------------------------------------------------end
-;;ffip-------------------------------------------------------
-;;导入ffip
-; (require 'find-file-in-project)
-; (setq ffip-prefer-ido-mode t)
-;;---------------------------------------------------------end
+(package-install 'orderless)
+(setq completion-styles '(orderless))
 
-;;edwina---------------------------------------
-; (add-to-list 'load-path "~/.emacs.d/package/edwina")
-; (require 'edwina)
+(package-install 'marginalia)
+(marginalia-mode t)
 
-; (setq display-buffer-base-action '(display-buffer-below-selected))
-; ;; 以下定义会被 (edwina-setup-dwm-keys) 增加 'M-' 修饰。
-; ;; 我自定义了一套按键，因为原版会把我很常用的 M-d 覆盖掉。
-; (setq edwina-dwm-key-alist
-;       '(("r" edwina-arrange)
-;         ("j" edwina-select-next-window)
-;         ("k" edwina-select-previous-window)
-;         ("J" edwina-swap-next-window)
-;         ("K" edwina-swap-previous-window)
-;         ("h" edwina-dec-mfact)    ;; 主窗口缩窄
-;         ("l" edwina-inc-mfact)    ;; 主窗口拉宽
-;         ("D" edwina-dec-nmaster)  ;; 减少主窗口的数量
-;         ("I" edwina-inc-nmaster)  ;; 增加主窗口的数量
-;         ("C" edwina-delete-window) ;; 关闭窗口
-;         ("RET" edwina-zoom t)     ;; 交换「主窗口」和「副窗口」
-;         ("return" edwina-zoom t)
-;         ("S-RET" edwina-clone-window t) ;; 复制一个本窗口
-;         ("S-return" edwina-clone-window t)))
-; (edwina-setup-dwm-keys)
-; (edwina-mode 1)
+(package-install 'embark)
+(global-set-key (kbd "C-;") 'embark-act)
+(setq prefix-help-command 'embark-prefix-help-command)
 
-; (use-package edwina
-;   :ensure t
-;   :config
-;   (setq display-buffer-base-action '(display-buffer-below-selected))
-;   (edwina-setup-dwm-keys)
-;   (edwina-mode 1))
+(package-install 'consult)
+;;replace swiper
+(global-set-key (kbd "C-c C-s") 'consult-line)
+;;consult-imenu
 
-;;winum--------------------------------------
-(add-to-list 'load-path "~/.emacs.d/package/emacs-winum")
-(require 'winum)
-(winum-mode)
+(package-install 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;;---------------------------------------------包管理end-------------------------------------------
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico projectile orderless marginalia embark consult company)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
