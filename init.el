@@ -1,19 +1,8 @@
+
 ;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
 ;; -*- lexical-binding: t -*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;add package load-path 
-; (add-to-list 'load-path "~/.emacs.d/package/company-mode")
-; (add-to-list 'load-path "~/.emacs.d/package/company-lua")
-; (add-to-list 'load-path "~/.emacs.d/package/f")
-; (add-to-list 'load-path "~/.emacs.d/package/s")
-; (add-to-list 'load-path "~/.emacs.d/package/dash")
-; ; (add-to-list 'load-path "~/.emacs.d/package/lua-mode")
-; (add-to-list 'load-path "~/.emacs.d/package/neotree")
-; (add-to-list 'load-path "~/.emacs.d/package/projectile")
-; (add-to-list 'load-path "~/.emacs.d/package/find-file-in-project")
 
-;;add theme load-path
-; (add-to-list 'load-path "~/.emacs.d/theme/color-theme")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;BUG;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (eval-when-compile (setq lexical-binding t))
@@ -64,23 +53,9 @@
 (set-face-attribute 'default nil :height 120);;
 
 ;;让鼠标滚动更好用
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
-(setq mouse-wheel-progressive-speed nil)
+;(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+;(setq mouse-wheel-progressive-speed nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; (custom-set-variables
-;  ;; custom-set-variables was added by Custom.
-;  ;; If you edit it by hand, you could mess it up, so be careful.
-;  ;; Your init file should contain only one such instance.
-;  ;; If there is more than one, they won't work right.
-;  '(package-selected-packages
-;    '(projectile consult embark marginalia orderless vertico company)))
-; (custom-set-faces
-;  ;; custom-set-faces was added by Custom.
-;  ;; If you edit it by hand, you could mess it up, so be careful.
-;  ;; Your init file should contain only one such instance.
-;  ;; If there is more than one, they won't work right.
-;  )
 ;;-----------------------------------------自定义按键----------------------------------------------
 ;; copy region or whole line
 (global-set-key "\M-w"
@@ -107,12 +82,20 @@
   (line-end-position))
      (message "killed line")))))
 
+;;忽略本行新建新的一行
+(global-set-key (kbd "C-<return>")
+(lambda ()
+  (interactive)
+     (end-of-line)
+     (newline)))
 
-;;------------------------------------------------------------------------------------------------
+;;------------------------------------------------主题theme------------------------------------------------
 ;;load theme
-; (require 'color-theme)
-; (color-theme-initialize)
-; (color-theme-monokai)
+; (require 'monokai-theme)
+; (load-theme 'monokai t)
+
+
+
 ;;---------------------------------------------配置源begin---------------------------------------------
 (require 'package)
 ; (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
@@ -128,12 +111,15 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
-; ;;modeline上显示我的所有的按键和执行的命令
-; (package-install 'keycast)
-; (keycast-mode t)
+
 ;;---------------------------------------------配置源end-------------------------------------------
 ;;---------------------------------------------包管理begin-------------------------------------------
+; ;;modeline上显示我的所有的按键和执行的命令
+(package-install 'keycast)
+(require 'keycast)
+(keycast-mode t)
 
+(package-install 'company)
 (global-company-mode 1)
 (setq company-minmum-prefix-length 1)
 (setq company-idle-delay 0)
@@ -146,6 +132,8 @@
 
 (package-install 'orderless)
 (setq completion-styles '(orderless))
+(global-set-key [F5] 'project-find-file)
+(global-set-key [F6] 'project-switch-project)
 
 (package-install 'marginalia)
 (marginalia-mode t)
@@ -163,6 +151,12 @@
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+(package-install 'monokai-theme)
+(load-theme 'monokai t)
+
+(package-install 'lua-mode)
+; (load-theme 'monokai t)
 ;;---------------------------------------------包管理end-------------------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
