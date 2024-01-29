@@ -1,9 +1,9 @@
-
+
 ;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
 ;; -*- lexical-binding: t -*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
+(add-to-list 'load-path "~/.emacs.d/package/company-ctags/company-ctags")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;BUG;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (eval-when-compile (setq lexical-binding t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,13 +12,13 @@
 ;;关闭启动画面
 (setq inhibit-startup-message t)
 ; 在全局上显示列号
-(global-linum-mode t)
+;;(global-linum-mode t)
 
 ;; all backups goto ~/.backups instead in the current directory
 (setq backup-directory-alist (quote (("." . "~/.emacs-backups"))))
 
 ;在 Window 显示行号
-;;(global-display-line-numbers-mode 1)
+(global-display-line-numbers-mode 1)
 
 ;;高亮当前行
 (global-hl-line-mode t)
@@ -132,8 +132,8 @@
 
 (package-install 'orderless)
 (setq completion-styles '(orderless))
-(global-set-key [F5] 'project-find-file)
-(global-set-key [F6] 'project-switch-project)
+(global-set-key [f5] 'project-find-file)
+(global-set-key [f6] 'project-switch-project)
 
 (package-install 'marginalia)
 (marginalia-mode t)
@@ -156,7 +156,33 @@
 (load-theme 'monokai t)
 
 (package-install 'lua-mode)
-; (load-theme 'monokai t)
+;; (load-theme 'monokai t)
+(require 'company-ctags)
+(with-eval-after-load 'company
+  (company-ctags-auto-setup))
+
+;;C/C++ begin------------
+;; eglot begin
+(require 'eglot)
+(add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+(add-hook 'c-mode-hook #'eglot-ensure)
+(add-hook 'c++-mode-hook #'eglot-ensure)
+;; eglot end
+;; C/C++ end
+
+;; Erlang begin ----------
+;;emacs 是erlang选中的官方IDE，所以自带erlang配置但需要下面这段配置
+(setq load-path (cons  "C:/Program Files/Erlang OTP/lib/tools-3.5.3/emacs" load-path))
+(setq erlang-root-dir "C:/Program Files/Erlang OTP")
+(setq exec-path (cons "C:/Program Files/Erlang OTP/bin" exec-path))
+
+(require 'erlang-start)
+(put 'narrow-to-region 'disabled nil)
+
+
+(add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
+(add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))
+;; Erlang end ---------
 ;;---------------------------------------------包管理end-------------------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
