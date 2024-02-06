@@ -1,1 +1,1 @@
-("~/.emacs.d/" "e:/Code/server/server/" "e:/codeWorker/seanet/" "e:/gitCode/awk/" "e:/gitCode/skynet/")
+("~/.emacs.d/" "e:/codeWorker/seanet/" "e:/Code/server/server/" "e:/gitCode/awk/" "e:/gitCode/skynet/")
