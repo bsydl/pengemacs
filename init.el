@@ -1,4 +1,3 @@
-
 ;;在文件最开头添加地个 文件作用域的变量设置，设置变量的绑定方式
 ;; -*- lexical-binding: t -*-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,6 +28,7 @@
 (tool-bar-mode 0)
 ;;菜单栏
 (menu-bar-mode 1)
+
 ;;允许emacs和外部其他程序的粘贴
 (setq x-select-enable-clipboard t)
 
@@ -37,16 +37,6 @@
 
 ;; 设置光标为竖线
 (setq-default cursor-type '(bar . 5))
-;; 设置光标为方块
-
-;; (setq-default cursor-type 'box)
-;; 快速打开配置文件
-(defun open-init-file()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
-(global-set-key (kbd "<f2>") 'open-init-file)
 
 ;; 更改显示字体大小 16pt
 ;; http://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
@@ -56,6 +46,12 @@
 ;(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
 ;(setq mouse-wheel-progressive-speed nil)
 
+;;快速窗口跳转 shift + 方向键
+;; use Shift+arrow_keys to move cursor around split panes
+(windmove-default-keybindings)
+
+;; when cursor is on edge, move to the other side, as in a toroidal space
+(setq windmove-wrap-around t )
 ;;-----------------------------------------自定义按键----------------------------------------------
 ;; copy region or whole line
 (global-set-key "\M-w"
@@ -88,6 +84,15 @@
   (interactive)
      (end-of-line)
      (newline)))
+
+;; (setq-default cursor-type 'box)
+;; 快速打开配置文件
+(defun open-init-file()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+(global-set-key (kbd "<f2>") 'open-init-file)
 
 ;;------------------------------------------------主题theme------------------------------------------------
 ;;load theme
@@ -197,3 +202,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'scroll-left 'disabled nil)

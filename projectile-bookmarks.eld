@@ -1,1 +1,0 @@
-("~/.emacs.d/" "e:/codeWorker/seanet/" "e:/Code/server/server/" "e:/gitCode/awk/" "e:/gitCode/skynet/")
