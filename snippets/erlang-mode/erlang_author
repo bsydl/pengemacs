@@ -1,0 +1,6 @@
+# -*- mode: erlang-mode -*-
+# name: erlang_author
+# key: moderlau
+# --
+-module($1).
+-author('peng').

@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-03-05 周二 16:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>org mode</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">org mode</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org39d1ef5">1. 标题操作&#xa0;&#xa0;&#xa0;<span class="tag"><span class="work">work</span></span></a></li>
+<li><a href="#org201ea69">2. TODO操作</a></li>
+<li><a href="#orgde56e6b">3. 表格</a></li>
+<li><a href="#org1509810">4. 链接</a></li>
+<li><a href="#orge20eb81">5. 内容编辑操作</a></li>
+<li><a href="#org626483c">6. 导出</a></li>
+<li><a href="#orgb3d5d03">7. <span class="todo TODO">TODO</span> 标签</a></li>
+<li><a href="#org8676387">8. <span class="todo TODO">TODO</span> 日期</a>
+<ul>
+<li><a href="#org5d8a5fb">8.1. deadline 截止时间</a></li>
+</ul>
+</li>
+<li><a href="#org1be0144">9. <span class="todo TODO">TODO</span> 属性</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org39d1ef5" class="outline-2">
+<h2 id="org39d1ef5"><span class="section-number-2">1.</span> 标题操作&#xa0;&#xa0;&#xa0;<span class="tag"><span class="work">work</span></span></h2>
+<div class="outline-text-2" id="text-1">
+<p>
+&lt;tab&gt; 收起展开标题
+&lt;shift&gt;-&lt;tab&gt; 相反顺序收起展开
+C-c C-n 跳到下一个标题（可跨层级）
+C-c C-p 跳到上一个标题（可跨层级）
+C-c C-f 跳到下一个标题（同层级）
+C-c C-b 跳到上一个标题（同层级）
+C-c C-u 跳到上一级标题（upper）
+</p>
+
+<p>
+M-Ret插入一个标题（如果在文字中，插入一个一级标题〔毕竟它不好判断〕；如果在标题中，插入同级的标题）
+M-left/right增加/缩减标题的层级
+M-up/down将标题向上或向下移动
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org201ea69" class="outline-2">
+<h2 id="org201ea69"><span class="section-number-2">2.</span> TODO操作</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+M-S-&lt;ret&gt; 插入一个todo标题
+C-c C-t 切换TODO状态
+</p>
+</div>
+</div>
+<div id="outline-container-orgde56e6b" class="outline-2">
+<h2 id="orgde56e6b"><span class="section-number-2">3.</span> 表格</h2>
+<div class="outline-text-2" id="text-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">a</td>
+<td class="org-left">b</td>
+<td class="org-left">c</td>
+<td class="org-left">-&gt; &lt;tab&gt;键辅助调整</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-c</td>
+<td class="org-left">重新对齐表格</td>
+</tr>
+
+<tr>
+<td class="org-left">TAB/S-TAB</td>
+<td class="org-left">重新对齐表格，并在横向格子里跳转</td>
+</tr>
+
+<tr>
+<td class="org-left">Ret</td>
+<td class="org-left">重新对齐表格，并跳到下一行的格子</td>
+</tr>
+
+<tr>
+<td class="org-left">M-方向键</td>
+<td class="org-left">将单元格所在的行/列进行上下移动</td>
+</tr>
+
+<tr>
+<td class="org-left">M-S-←/↑</td>
+<td class="org-left">删除光标所在的行列（记忆：这两个箭头都是指向表格内部，用于缩减表格，即删除）</td>
+</tr>
+
+<tr>
+<td class="org-left">M-S-→/↓</td>
+<td class="org-left">在光标所在的单元格前面或者上面，增加行或列（记忆：这两个箭头指向表格外部，用于扩充表格，即新增）</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c -或者C-Ret</td>
+<td class="org-left">新增一个分隔线，两个按键在生成分隔线后的光标行为不同</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c ^</td>
+<td class="org-left">对表格进行行排序</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org1509810" class="outline-2">
+<h2 id="org1509810"><span class="section-number-2">4.</span> 链接</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+C-c C-l 生成链接
+</p>
+<pre class="example" id="orgab8ae3f">
+[[链接的URL或ID][]]
+</pre>
+
+<p>
+C-c C-o 打开链接
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-orge20eb81" class="outline-2">
+<h2 id="orge20eb81"><span class="section-number-2">5.</span> 内容编辑操作</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+&lt;q  按tab键生成代码块
+&lt;e  按tab键生成引用块
+</p>
+</div>
+</div>
+<div id="outline-container-org626483c" class="outline-2">
+<h2 id="org626483c"><span class="section-number-2">6.</span> 导出</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+C-c C-e 导出
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb3d5d03" class="outline-2">
+<h2 id="orgb3d5d03"><span class="section-number-2">7.</span> <span class="todo TODO">TODO</span> 标签</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+在冒号之后，M-TAB 可以补全标签 (与windows应用切换快捷键冲突)
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-q</td>
+<td class="org-left">为当前标题输入标签。Org 模式既支持补全，也支持单键接口来设置标签，见下文。回车之后，标签会被插入，并放到第 org-tags-column 列。如果用前缀 C-u，会把当前缓冲区中的所有标签都对齐到那一列，这看起来很酷。</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-c</td>
+<td class="org-left">当光标处于标题上时，这个命令同C-c C-q。</td>
+</tr>
+
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-org8676387" class="outline-2">
+<h2 id="org8676387"><span class="section-number-2">8.</span> <span class="todo TODO">TODO</span> 日期</h2>
+<div class="outline-text-2" id="text-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c .</td>
+<td class="org-left">询问日期并输入正确的时间戳。当光标处理一个时间戳之上时，是修改这个时间戳，而不是插入一个新的。如果这个命令连用再次，就会插入一个时间段。加上前缀会附带当前时间。</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c !</td>
+<td class="org-left">功能同C-c .，但是插入的是一个未激活的时间戳。</td>
+</tr>
+
+<tr>
+<td class="org-left">S-LEFT/RIGHT</td>
+<td class="org-left">将光标处理的时间戳改变一天。</td>
+</tr>
+
+<tr>
+<td class="org-left">S-UP/DOWN</td>
+<td class="org-left">改变时间戳中光标下的项。光标可以处在年、月、日、时或者分之上。当时间戳包含一个时间段时，如 “15:30-16:30”，修改第一个时间，会自动同时修改第二个时间，以保持时间段长度不变。想修改时间段长度，可以修改第二个时间。</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-org5d8a5fb" class="outline-3">
+<h3 id="org5d8a5fb"><span class="section-number-3">8.1.</span> deadline 截止时间</h3>
+<div class="outline-text-3" id="text-8-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">快捷键</th>
+<th scope="col" class="org-left">desc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">C-c C-d</td>
+<td class="org-left">在标题下面一行插入一个带有“DEADLINE”关键字的时间戳。</td>
+</tr>
+
+<tr>
+<td class="org-left">C-c C-s</td>
+<td class="org-left">在标题下面插入一个带有“SCHEDULED”关键字的时间戳。</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-org1be0144" class="outline-2">
+<h2 id="org1be0144"><span class="section-number-2">9.</span> <span class="todo TODO">TODO</span> 属性</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-03-05 周二 16:42</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

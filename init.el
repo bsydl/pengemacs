@@ -23,11 +23,17 @@
 (global-hl-line-mode t)
 
 ;;关闭滚动条
-(scroll-bar-mode -1)
+;(scroll-bar-mode -1)
 ;;工具栏
-(tool-bar-mode 0)
+;(tool-bar-mode 0)
 ;;菜单栏
-(menu-bar-mode 1)
+;(menu-bar-mode 1)
+
+;;隐藏式（）
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode 1))
+
 
 ;;允许emacs和外部其他程序的粘贴
 (setq x-select-enable-clipboard t)
@@ -52,6 +58,12 @@
 
 ;; when cursor is on edge, move to the other side, as in a toroidal space
 (setq windmove-wrap-around t )
+;;-----------------------------------------org_mode----------------------------------------------
+;;日期
+(setq org-log-done 'time)
+;；开启自动转行
+(setq truncate-lines 1)
+
 ;;-----------------------------------------自定义按键----------------------------------------------
 ;; copy region or whole line
 (global-set-key "\M-w"
@@ -188,6 +200,22 @@
 (add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
 (add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))
 ;; Erlang end ---------
+
+(add-to-list 'load-path
+              "~/.emacs.d/package/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1) ;;设置为全局模式，在任何mode中是生效的
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"                 ;; personal snippets
+        "~/.emacs.d/elpa/yasnippet-snippets-20240221.1621/snippets"
+        ))
+
+;;multiple-cursors
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 ;;---------------------------------------------包管理end-------------------------------------------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -195,7 +223,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vertico projectile orderless marginalia embark consult company)))
+   '(multiple-cursors vertico projectile orderless marginalia embark consult company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
